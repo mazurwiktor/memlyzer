@@ -1,0 +1,15 @@
+[package]
+name = "memlyzer"
+version = "0.1.0"
+authors = ["Wiktor Mazur <wiktormazur1@gmail.com>"]
+
+[dependencies]
+config = "0.9"
+lazy_static = "1.0"
+regex = "1"
+log = "0.4"
+simplelog = "0.5"
+
+[features]
+default = ["use_std"]
+use_std = []
