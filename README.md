@@ -17,7 +17,7 @@ Memlyzer scans Tibia process memory and gathers information about looted items t
 * **Libnotify-bin**: Library to send desktop notifications. To install it on debian based environments, you can just run `[sudo] apt-get install libnotify-bin`.
 
 
-1. From [latest release](memlyzer/releases/latest) download `memlyzer.tar` archive.
+1. From [latest release](https://github.com/mazurwiktor/memlyzer/releases) download `memlyzer.tar` archive.
 2. Extract archive E.g
     ```bash
     mkdir ~/memlyzer && cd ~/memlyzer
