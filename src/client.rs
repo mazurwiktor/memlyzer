@@ -50,6 +50,10 @@ fn pid() -> Option<u32> {
     match tibia_process {
         Some(process) => {
             let process_entry = process.split(" ").collect::<Vec<&str>>();
+            if process_entry.len() < 1 {
+                debug!("invalid  ps output");
+                return None;
+            }
             Some(match process_entry[0].parse() {
                 Ok(p_id) => p_id,
                 Err(_) => process_entry[1].parse().unwrap(),
@@ -75,6 +79,10 @@ fn heap(pid: u32) -> Option<MemoryRegion> {
             let region = line.split(" ").collect::<Vec<&str>>()[0]
                 .split("-")
                 .collect::<Vec<&str>>();
+            if region.len() < 2 {
+                debug!("invalid memory map format");
+                return None;
+            }
             return Some(MemoryRegion {
                 start: u64::from_str_radix(&region[0], 16).unwrap(),
                 end: u64::from_str_radix(&region[1], 16).unwrap(),

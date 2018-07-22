@@ -27,6 +27,13 @@ impl Loot {
             .collect::<Vec<&str>>()[0]
             .split(":").collect::<Vec<&str>>();
         
+        if msg_parts.len() < 1 {
+            debug!("Invalid message");
+            return Loot {
+                monster: String::from("Unknown"),
+                items: vec![]
+            };
+        }
         let monster = msg_parts[0].trim();
         let items = msg_parts[1].split(",")
             .collect::<Vec<&str>>().into_iter()

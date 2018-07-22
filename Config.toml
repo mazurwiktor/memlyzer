@@ -1,4 +1,5 @@
 loot_list = [
+    "drakinata",
     "platinum coin", "scarab shield", "springsprout rod", "green dragon leather", "red dragon leather",
     "small emerald", "small sapphire", "small amethyst", "small diamond", "serpent sword", 
     "steel helmet", "ape fur", "rubber cap", "heat core", "terra mantle", "steel boots", 
@@ -6,8 +7,8 @@ loot_list = [
     "glooth amulet", "giant shimmering pearl", "terra amulet", "terra hood", "terra boots", 
     "glooth cape", "glooth axe", "glooth club", "glooth blade", "glooth bag", "green gem", 
     "skull staff", "metal bat", "gearwheel chain", "crown armor", "royal helmet", "medusa shield", 
-    "tower shield", "giant sword", "sacred tree amulet", "zaoan armor", "zaoan helmet", "zaoan leg", 
-    "zaoan shoe", "deepling squelcher", "deepling staff", "necklace of the deep", "ornate crossbow", "guardian axe",
+    "tower shield", "giant sword", "sacred tree amulet", "Zaoan armor", "zaoan helmet", "zaoan leg", 
+    "Zaoan shoe", "deepling squelcher", "deepling staff", "necklace of the deep", "ornate crossbow", "guardian axe",
     "foxtail", "heavy trident", "warrior's shield", "warrior's axe", "magic plate armor", "golden leg", "mastermind shield", 
     "fire axe", "demon shield", "giant sword","demon trophy", "demonrage sword", "gold ring", "platinum amulet", 
     "magma leg", "amber staff", "onyx flail", "fire sword", "magma monocle", "magma boots", "ruthless axe", 
