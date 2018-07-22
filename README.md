@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mazurwiktor/memlyzer.svg?branch=master)](https://travis-ci.org/mazurwiktor/memlyzer)
+
 # Memlyzer
 Memlyzer is an Linux extension made for the MMORPG Tibia inspired by (both unfortunately **outdated**) [Tibialyzer](https://github.com/Mytherin/Tibialyzer) and [Flarelyzer](https://github.com/Javieracost/Flarelyzer)).
 
@@ -15,7 +17,14 @@ Memlyzer scans Tibia process memory and gathers information about looted items t
 * **Libnotify-bin**: Library to send desktop notifications. To install it on debian based environments, you can just run `[sudo] apt-get install libnotify-bin`.
 
 
-*Coming soon*
+1. From [latest release](memlyzer/releases/latest) download `memlyzer.tar` archive.
+2. Extract archive E.g
+    ```bash
+    mkdir ~/memlyzer && cd ~/memlyzer
+    tar xf ./memlyzer.tar
+    ```
+3. Run `~/memlyzer/start-memlyzer.sh`
+
 
 # Configuring and usage
 

@@ -1,0 +1,16 @@
+language: rust
+rust:
+  - stable
+script:
+  - cargo build --release --verbose
+before_deploy:
+  - tar cvf memlyzer.tar start-memlyzer.sh Config.toml target/release/memlyzer
+deploy:
+  provider: releases
+  api_key:
+    secure: $GITHUB_TOKEN
+  file:
+    - "memlyzer.tar"
+  skip_cleanup: true
+  on:
+    tags: true
