@@ -42,10 +42,13 @@ fn mem(pid: u32) -> Option<Vec<u8>> {
 }
 
 fn pid() -> Option<u32> {
-    let out = Command::new("ps").arg("a").output().unwrap();
+    let out = Command::new("ps").arg("ax").output().unwrap();
     let stdout = String::from(str::from_utf8(&out.stdout).unwrap());
     let processes: Vec<&str> = stdout.split("\n").collect();
-    let tibia_process = processes.iter().find(|row| row.find("tibia").is_some());
+    let tibia_process = processes.iter().find(|row| 
+        row.find("Tibia/bin/client").is_some()
+        && row.find("--package-is-up-to-date").is_none()
+    );
 
     match tibia_process {
         Some(process) => {
