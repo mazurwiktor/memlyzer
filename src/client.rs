@@ -7,10 +7,11 @@ use std::vec::Vec;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
 use std::result::Result;
+use libc::{c_void, iovec, pid_t, process_vm_readv};
+use std::io;
+
+type Pid = pid_t;
 
 pub fn raw_memory() -> Result<Vec<u8>, &'static str> {
     match pid() {
@@ -30,13 +31,11 @@ pub fn raw_memory() -> Result<Vec<u8>, &'static str> {
 
 fn mem(pid: u32) -> Option<Vec<u8>> {
     if let Some(heap_region) = heap(pid) {
-        let mut mem_file = File::open(format!("/proc/{}/mem", pid)).unwrap();
-        let mut file = BufReader::new(&mem_file);
-        file.seek(SeekFrom::Start(heap_region.start)).unwrap();
-        let mut chunk = file.take(heap_region.end - heap_region.start);
-        let mut mem = vec![];
-        chunk.read_to_end(&mut mem).unwrap();
-        return Some(mem);
+        let mut buffer = vec![0;  (heap_region.end - heap_region.start) as usize];
+        match copy_address(pid as Pid, heap_region.start as usize, &mut buffer) {
+            Ok(_) => return Some(buffer),
+            Err(e) => panic!(e)
+        }
     }
     None
 }
@@ -53,7 +52,7 @@ fn pid() -> Option<u32> {
     match tibia_process {
         Some(process) => {
             let process_entry = process.split(" ").collect::<Vec<&str>>();
-            if process_entry.len() < 1 {
+            if process_entry.len() <= 1 {
                 debug!("invalid  ps output");
                 return None;
             }
@@ -82,7 +81,7 @@ fn heap(pid: u32) -> Option<MemoryRegion> {
             let region = line.split(" ").collect::<Vec<&str>>()[0]
                 .split("-")
                 .collect::<Vec<&str>>();
-            if region.len() < 2 {
+            if region.len() <= 1 {
                 debug!("invalid memory map format");
                 return None;
             }
@@ -93,4 +92,22 @@ fn heap(pid: u32) -> Option<MemoryRegion> {
         }
     }
     None
+}
+
+
+fn copy_address(pid: Pid, addr: usize, buf: &mut [u8]) -> io::Result<()> {
+    let local_iov = iovec {
+        iov_base: buf.as_mut_ptr() as *mut c_void,
+        iov_len: buf.len(),
+    };
+    let remote_iov = iovec {
+        iov_base: addr as *mut c_void,
+        iov_len: buf.len(),
+    };
+    let result = unsafe { process_vm_readv(pid, &local_iov, 1, &remote_iov, 1, 0) };
+    if result == -1 {
+        Err(io::Error::last_os_error())
+    } else {
+        Ok(())
+    }
 }

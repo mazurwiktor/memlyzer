@@ -31,7 +31,7 @@ impl Who {
             .unwrap()
             .split_whitespace()
             .collect::<Vec<&str>>();
-        if args.len() < 1 {
+        if args.len() <= 1 {
             debug!("invalid who output");
             return None;
         }

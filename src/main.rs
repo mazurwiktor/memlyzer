@@ -5,7 +5,7 @@ extern crate regex;
 #[macro_use]
 extern crate log;
 extern crate simplelog;
-
+extern crate libc;
 mod client;
 mod configuration;
 mod loot;
